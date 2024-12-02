@@ -65,6 +65,13 @@
     label {
       display: none; /* Прячем текстовые метки, так как используем placeholder */
     }
+
+    /* Сообщение об ошибке */
+    .error-message {
+      color: #ff4d4d;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
@@ -72,19 +79,40 @@
     <input type="text" name="adr" placeholder="Адрес" required><br>
     <input type="text" name="car" placeholder="Марка/Модель" required><br>
     <input type="text" name="vin" placeholder="VIN код" required><br>
-    <input type="text" name="time" placeholder="Время по договоренности"><br>
-    <input type="text" name="buyer" placeholder="Байер"><br>
-    <input type="text" name="loc" placeholder="Локация"><br>
+    <span id="vin-error" class="error-message" style="display: none;">VIN должен содержать 17 символов: только буквы латинского алфавита и цифры.</span>
+    <input type="text" name="time" placeholder="Время по договоренности" required><br>
+    <input type="text" name="buyer" placeholder="Байер" required><br>
+    <input type="text" name="loc" placeholder="Локация" required><br>
     <button type="submit">Отправить</button>
   </form>
   <script>
     document.getElementById('form').onsubmit = function(e) {
       e.preventDefault();
+
+      // Проверка VIN
+      const vinInput = document.querySelector('input[name="vin"]');
+      const vinError = document.getElementById('vin-error');
+      const vinValue = vinInput.value.trim();
+
+      // Регулярное выражение для проверки VIN
+      const vinRegex = /^[A-HJ-NPR-Z0-9]{17}$/i;
+
+      if (!vinRegex.test(vinValue)) {
+        vinError.style.display = 'block'; // Показываем сообщение об ошибке
+        vinInput.focus();
+        return; // Прекращаем отправку формы
+      } else {
+        vinError.style.display = 'none'; // Прячем сообщение об ошибке
+      }
+
+      // Формируем данные формы
       const data = new FormData(this);
       const result = {};
       data.forEach((value, key) => {
         result[key] = value;
       });
+
+      // Отправляем данные в Telegram
       window.Telegram.WebApp.sendData(JSON.stringify(result));
     };
   </script>
