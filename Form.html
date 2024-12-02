@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Заполните форму</title>
+</head>
+<body>
+  <form id="form">
+    <label>Имя:</label>
+    <input type="text" name="name" required><br>
+    <label>Фамилия:</label>
+    <input type="text" name="surname" required><br>
+    <label>Возраст:</label>
+    <input type="number" name="age" required><br>
+    <label>Email:</label>
+    <input type="email" name="email"><br>
+    <label>Телефон:</label>
+    <input type="tel" name="phone"><br>
+    <label>Город:</label>
+    <input type="text" name="city"><br>
+    <button type="submit">Отправить</button>
+  </form>
+  <script>
+    document.getElementById('form').onsubmit = function(e) {
+      e.preventDefault();
+      const data = new FormData(this);
+      const result = {};
+      data.forEach((value, key) => {
+        result[key] = value;
+      });
+      Telegram.WebApp.sendData(JSON.stringify(result));
+    };
+  </script>
+</body>
+</html>
