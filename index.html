@@ -43,6 +43,10 @@
       color: #ccc;
     }
 
+    input[type="text"].error {
+      border-color: #ff4d4d;
+    }
+
     /* Стили кнопки */
     button {
       width: 100%;
@@ -74,7 +78,7 @@
   <form id="form">
     <input type="text" name="adr" placeholder="Адрес" required><br>
     <input type="text" name="car" placeholder="Марка/Модель" required><br>
-    <input type="text" name="vin" placeholder="VIN код" required><br>
+    <input type="text" id="vin" name="vin" placeholder="VIN код" required><br>
     <span id="vin-error" class="error-message">VIN должен содержать ровно 17 символов: только латинские буквы и цифры, без пробелов.</span>
     <input type="text" name="time" placeholder="Время по договоренности" required><br>
     <input type="text" name="buyer" placeholder="Байер" required><br>
@@ -82,23 +86,37 @@
     <button type="submit">Отправить</button>
   </form>
   <script>
-    document.getElementById('form').onsubmit = function(e) {
-      e.preventDefault();
+    // Получаем элементы формы
+    const vinInput = document.getElementById('vin');
+    const vinError = document.getElementById('vin-error');
 
-      // Проверка VIN
-      const vinInput = document.querySelector('input[name="vin"]');
-      const vinError = document.getElementById('vin-error');
+    // Регулярное выражение для проверки VIN
+    const vinRegex = /^[A-HJ-NPR-Z0-9]{17}$/i;
+
+    // Обработчик ввода VIN
+    vinInput.addEventListener('input', () => {
       const vinValue = vinInput.value.trim();
 
-      // Регулярное выражение для проверки VIN
-      const vinRegex = /^[A-HJ-NPR-Z0-9]{17}$/i;
-
       if (!vinRegex.test(vinValue)) {
+        vinInput.classList.add('error'); // Добавляем стиль ошибки
         vinError.style.display = 'block'; // Показываем сообщение об ошибке
+      } else {
+        vinInput.classList.remove('error'); // Убираем стиль ошибки
+        vinError.style.display = 'none'; // Прячем сообщение об ошибке
+      }
+    });
+
+    // Обработчик отправки формы
+    document.getElementById('form').onsubmit = function (e) {
+      e.preventDefault();
+
+      // Проверка VIN перед отправкой
+      const vinValue = vinInput.value.trim();
+      if (!vinRegex.test(vinValue)) {
+        vinInput.classList.add('error');
+        vinError.style.display = 'block';
         vinInput.focus();
         return; // Прекращаем отправку формы
-      } else {
-        vinError.style.display = 'none'; // Прячем сообщение об ошибке
       }
 
       // Формируем данные формы
