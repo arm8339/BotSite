@@ -3,21 +3,78 @@
 <head>
   <title>Заполните форму</title>
   <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+  <style>
+    /* Общий стиль для body */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to bottom, #1e1e1e, #434343);
+      color: white;
+    }
+
+    /* Стиль контейнера формы */
+    #form {
+      background: #2c2c2c;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* Стили полей ввода */
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #555;
+      border-radius: 5px;
+      background: #444;
+      color: white;
+      font-size: 16px;
+    }
+
+    input[type="text"]::placeholder {
+      color: #ccc;
+    }
+
+    /* Стили кнопки */
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #ff4d4d;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #e03c3c;
+    }
+
+    /* Текстовая анимация */
+    label {
+      display: none; /* Прячем текстовые метки, так как используем placeholder */
+    }
+  </style>
 </head>
 <body>
   <form id="form">
-    <label>Имя:</label>
-    <input type="text" name="name" required><br>
-    <label>Фамилия:</label>
-    <input type="text" name="surname" required><br>
-    <label>Возраст:</label>
-    <input type="number" name="age" required><br>
-    <label>Email:</label>
-    <input type="email" name="email"><br>
-    <label>Телефон:</label>
-    <input type="tel" name="phone"><br>
-    <label>Город:</label>
-    <input type="text" name="city"><br>
+    <input type="text" name="adr" placeholder="Адрес" required><br>
+    <input type="text" name="car" placeholder="Марка/Модель" required><br>
+    <input type="text" name="vin" placeholder="VIN код" required><br>
+    <input type="text" name="time" placeholder="Время по договоренности"><br>
+    <input type="text" name="buyer" placeholder="Байер"><br>
+    <input type="text" name="loc" placeholder="Локация"><br>
     <button type="submit">Отправить</button>
   </form>
   <script>
