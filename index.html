@@ -61,16 +61,12 @@
       background: #e03c3c;
     }
 
-    /* Текстовая анимация */
-    label {
-      display: none; /* Прячем текстовые метки, так как используем placeholder */
-    }
-
     /* Сообщение об ошибке */
     .error-message {
       color: #ff4d4d;
       font-size: 14px;
       margin-bottom: 10px;
+      display: none;
     }
   </style>
 </head>
@@ -79,7 +75,7 @@
     <input type="text" name="adr" placeholder="Адрес" required><br>
     <input type="text" name="car" placeholder="Марка/Модель" required><br>
     <input type="text" name="vin" placeholder="VIN код" required><br>
-    <span id="vin-error" class="error-message" style="display: none;">VIN должен содержать 17 символов: только буквы латинского алфавита и цифры.</span>
+    <span id="vin-error" class="error-message">VIN должен содержать ровно 17 символов: только латинские буквы и цифры, без пробелов.</span>
     <input type="text" name="time" placeholder="Время по договоренности" required><br>
     <input type="text" name="buyer" placeholder="Байер" required><br>
     <input type="text" name="loc" placeholder="Локация" required><br>
