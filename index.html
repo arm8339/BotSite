@@ -28,7 +28,7 @@
       data.forEach((value, key) => {
         result[key] = value;
       });
-      Telegram.WebApp.sendData(JSON.stringify(result));
+      window.Telegram.WebApp.sendData(JSON.stringify(result));
     };
   </script>
 </body>
