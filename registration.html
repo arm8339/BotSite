@@ -27,11 +27,16 @@
       max-width: 400px;
     }
 
-    /* Стили полей ввода и выпадающих списков */
-    input[type="text"], select {
+    /* Контейнер для поля с плавающим текстом */
+    .form-group {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    /* Стили для полей ввода и дат */
+    input[type="text"], input[type="date"], select {
       width: 100%;
       padding: 10px;
-      margin-bottom: 15px;
       border: 1px solid #555;
       border-radius: 5px;
       background: #444;
@@ -39,19 +44,31 @@
       font-size: 16px;
     }
 
-    input[type="date"] {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #555;
-      border-radius: 5px;
-      background: #444;
-      color: white;
+    /* Метка для плавающего текста */
+    label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
       font-size: 16px;
-    }
-
-    input[type="text"]::placeholder, select option {
       color: #ccc;
+      transition: 0.3s ease-in-out;
+      pointer-events: none;
+    }
+
+    /* Сдвиг текста вверх при фокусе или заполнении */
+    input:focus + label, input:not(:placeholder-shown) + label {
+      top: -15px;
+      left: 5px;
+      font-size: 12px;
+      color: #ff4d4d;
+    }
+
+    /* Стили для выпадающего списка */
+    select {
+      padding: 10px;
+      background: #444;
+      color: white;
+      font-size: 16px;
     }
 
     /* Стили кнопки */
@@ -75,18 +92,33 @@
 </head>
 <body>
   <form id="form">
-    <select name="role" required>
-      <option value="" disabled selected>Выберите роль</option>
-      <option value="admin">Администратор</option>
-      <option value="satellite">Сателлит</option>
-      <option value="expert">Эксперт</option>
-      <option value="senior">Старший</option>
-    </select>
-    <input type="text" name="firstname" placeholder="Имя" required>
-    <input type="text" name="lastname" placeholder="Фамилия" required>
-    <input type="date" name="birthdate" placeholder="Дата рождения" required>
-    <input type="text" name="phone" placeholder="Номер телефона" pattern="\+?[0-9\s\-]+" required>
-    <select name="branch" required>
+    <div class="form-group">
+      <select name="role" required>
+        <option value="" disabled selected>Выберите роль</option>
+        <option value="admin">Администратор</option>
+        <option value="satellite">Сателлит</option>
+        <option value="expert">Эксперт</option>
+        <option value="senior">Старший</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <input type="text" name="firstname" placeholder=" " required>
+      <label>Имя</label>
+    </div>
+    <div class="form-group">
+      <input type="text" name="lastname" placeholder=" " required>
+      <label>Фамилия</label>
+    </div>
+    <div class="form-group">
+      <input type="date" name="birthdate" placeholder=" " required>
+      <label>Дата рождения</label>
+    </div>
+    <div class="form-group">
+      <input type="text" name="phone" placeholder=" " pattern="\+?[0-9\s\-]+" required>
+      <label>Номер телефона</label>
+    </div>
+    <div class="form-group">
+      <select name="branch" required>
       <option value="" disabled selected>Выберите филиал</option>
       <option value="branch1">Вешки</option>
       <option value="branch2">Волгоградка</option>
