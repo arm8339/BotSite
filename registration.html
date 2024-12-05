@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Регистрация пользователя</title>
+  <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+  <style>
+    /* Общий стиль для body */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to bottom, #1e1e1e, #434343);
+      color: white;
+    }
+
+    /* Стиль контейнера формы */
+    #form {
+      background: #2c2c2c;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* Стили полей ввода и выпадающих списков */
+    input[type="text"], select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #555;
+      border-radius: 5px;
+      background: #444;
+      color: white;
+      font-size: 16px;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #555;
+      border-radius: 5px;
+      background: #444;
+      color: white;
+      font-size: 16px;
+    }
+
+    input[type="text"]::placeholder, select option {
+      color: #ccc;
+    }
+
+    /* Стили кнопки */
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #ff4d4d;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #e03c3c;
+    }
+  </style>
+</head>
+<body>
+  <form id="form">
+    <select name="role" required>
+      <option value="" disabled selected>Выберите роль</option>
+      <option value="admin">Администратор</option>
+      <option value="satellite">Сателлит</option>
+      <option value="expert">Эксперт</option>
+      <option value="senior">Старший</option>
+    </select>
+    <input type="text" name="firstname" placeholder="Имя" required>
+    <input type="text" name="lastname" placeholder="Фамилия" required>
+    <input type="date" name="birthdate" placeholder="Дата рождения" required>
+    <input type="text" name="phone" placeholder="Номер телефона" pattern="\+?[0-9\s\-]+" required>
+    <select name="branch" required>
+      <option value="" disabled selected>Выберите филиал</option>
+      <option value="branch1">Вешки</option>
+      <option value="branch2">Волгоградка</option>
+      <option value="branch3">Северо-Запад</option>
+      <option value="branch4">Юго-Восток</option>
+      <option value="branch5">Ясенево</option>
+    </select>
+    <button type="submit">Зарегистрировать</button>
+  </form>
+  <script>
+    document.getElementById('form').onsubmit = function(e) {
+      e.preventDefault();
+
+      // Формируем данные формы
+      const data = new FormData(this);
+      const result = {};
+      data.forEach((value, key) => {
+        result[key] = value;
+      });
+
+      // Отправляем данные в Telegram
+      window.Telegram.WebApp.sendData(JSON.stringify(result));
+    };
+  </script>
+</body>
+</html>
