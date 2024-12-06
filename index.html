@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Заполните форму</title>
+  <title>Заявка на выездной осмотр</title>
   <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
   <style>
     /* Общий стиль для body */
@@ -27,6 +27,12 @@
       max-width: 400px;
     }
 
+    /* Контейнер для поля с плавающим текстом */
+    .form-group {
+      position: relative;
+      margin-bottom: 15px;
+    }
+    
     /* Стили полей ввода */
     input[type="text"] {
       width: 100%;
@@ -37,6 +43,25 @@
       background: #444;
       color: white;
       font-size: 16px;
+    }
+
+    /* Метка для плавающего текста */
+    label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 16px;
+      color: #ccc;
+      transition: 0.3s ease-in-out;
+      pointer-events: none;
+    }
+
+    /* Сдвиг текста вверх при фокусе или заполнении */
+    input:focus + label, input:not(:placeholder-shown) + label {
+      top: -15px;
+      left: 5px;
+      font-size: 12px;
+      color: #ff4d4d;
     }
 
     input[type="text"]::placeholder {
