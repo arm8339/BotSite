@@ -30,7 +30,7 @@
     /* Контейнер для поля с плавающим текстом */
     .form-group {
       position: relative;
-      margin-bottom: 15px;
+      /* margin-bottom: 15px; */
     }
     
     /* Стили полей ввода */
@@ -104,13 +104,35 @@
 <!-- Служебное поле -->
     <input type="hidden" name="form_type" value="invoice_form">
     
-    <input type="text" name="adr" placeholder="Адрес" required><br>
-    <input type="text" name="car" placeholder="Марка/Модель" required><br>
-    <input type="text" id="vin" name="vin" placeholder="VIN код" required><br>
-    <span id="vin-error" class="error-message">VIN должен содержать ровно 17 символов: только латинские буквы и цифры, без пробелов.</span>
-    <input type="text" name="time" placeholder="Время по договоренности" required><br>
-    <input type="text" name="buyer" placeholder="Байер" required><br>
-    <input type="text" name="loc" placeholder="Локация" required><br>
+    <div class="form-group">
+      <input type="text" name="adr" placeholder=" " required>
+      <label>Адрес</label>
+    </div>
+    <div class="form-group">
+      <input type="text" name="car" placeholder=" " required>
+      <label>Марка/Модель</label>
+    </div>
+    <div class="form-group">
+      <input type="text" id="vin" name="vin" placeholder=" " required>
+      <label>VIN код</label>
+      <span id="vin-error" class="error-message">VIN должен содержать ровно 17 символов: только латинские буквы и цифры, без пробелов.</span>
+    </div>
+	<div class="form-group">
+      <input type="text" name="time" placeholder=" " required>
+      <label>Время по договоренности</label>
+    </div>
+	<div class="form-group">
+      <input type="text" name="avtoteka" placeholder=" " required>
+      <label>Ссылка на автотеку</label>
+    </div>
+	<div class="form-group">
+      <input type="text" name="advertisement" placeholder=" " required>
+      <label>Ссылка на объявление о продаже</label>
+    </div>
+	<div class="form-group">
+      <input type="text" name="comment" placeholder=" " required>
+      <label>Комментарий (опионально)</label>
+    </div>
     <button type="submit">Отправить</button>
   </form>
   <script>
