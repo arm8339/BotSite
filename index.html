@@ -34,7 +34,7 @@
     }
     
     /* Стили полей ввода */
-    input[type="text"] {
+    input[type="text"], select {
       width: 100%;
       padding: 10px;
       margin-bottom: 15px;
@@ -72,6 +72,14 @@
       border-color: #ff4d4d;
     }
 
+	/* Стили для выпадающего списка */
+    select {
+      padding: 10px;
+      background: #444;
+      color: white;
+      font-size: 16px;
+    }
+
     /* Стили кнопки */
     button {
       width: 100%;
@@ -98,13 +106,22 @@
       display: none;
     }
   </style>
-</head>
+</head>	
 <body>
   <form id="form">
+	<strong> Для создания заявки заполните поля формы. <br> 
+			Поля отмеченные ' * ' являются обязательными. <br> <br> </strong>
 <!-- Служебное поле -->
     <input type="hidden" name="form_type" value="invoice_form">
     
     <div class="form-group">
+      <select name="type" required>
+        <option value="" disabled selected>Выберите тип заявки</option>
+        <option value="tochat">Заявка в чат</option>
+		<option value="myself">Еду сам</option>        
+      </select>
+    </div>
+	<div class="form-group">
       <input type="text" name="adr" placeholder=" " required>
       <label>Адрес*</label>
     </div>
@@ -118,12 +135,20 @@
       <span id="vin-error" class="error-message">VIN должен содержать ровно 17 символов: только латинские буквы и цифры, без пробелов.</span>
     </div>
 	<div class="form-group">
+      <input type="text" name="client_name" placeholder=" " required>
+      <label>Клиент*</label>
+    </div>
+	<div class="form-group">
+      <input type="text" id="phone" name="client_phone" value="+7" pattern="\+7[0-9]{10}" required>
+      <label>Номер телефона клиента*</label>
+    </div>
+	<div class="form-group">
       <input type="text" name="time" placeholder=" " required>
       <label>Время по договоренности*</label>
     </div>
 	<div class="form-group">
-      <input type="text" name="avtoteka" placeholder=" " required>
-      <label>Ссылка на Автотеку*</label>
+      <input type="text" name="avtoteka" placeholder=" ">
+      <label>Ссылка на автотеку</label>
     </div>
 	<div class="form-group">
       <input type="text" name="advertisement" placeholder=" ">
@@ -131,7 +156,7 @@
     </div>
 	<div class="form-group">
       <input type="text" name="comment" placeholder=" ">
-      <label>Комментарий</label>
+      <label>Комментарий (опионально)</label>
     </div>
     <button type="submit">Отправить</button>
   </form>
@@ -139,9 +164,24 @@
     // Получаем элементы формы
     const vinInput = document.getElementById('vin');
     const vinError = document.getElementById('vin-error');
+	const phoneInput = document.getElementById('phone');
 
     // Регулярное выражение для проверки VIN
     const vinRegex = /^[A-HJ-NPR-Z0-9]{17}$/i;
+	
+	// Обработчик ввода телефона
+    phoneInput.addEventListener('input', (e) => {
+      // Запретить удаление "+7"
+      if (!phoneInput.value.startsWith('+7')) {
+        phoneInput.value = '+7';
+      }
+      // Ограничить ввод до 12 символов (+7 и 10 цифр)
+      if (phoneInput.value.length > 12) {
+        phoneInput.value = phoneInput.value.slice(0, 12);
+      }
+      // Удалить все недопустимые символы
+      phoneInput.value = phoneInput.value.replace(/[^\+7\d]/g, '');
+    });
 
     // Обработчик ввода VIN
     vinInput.addEventListener('input', () => {
