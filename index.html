@@ -135,7 +135,7 @@
       <span id="vin-error" class="error-message">VIN должен содержать ровно 17 символов: только латинские буквы и цифры, без пробелов.</span>
     </div>
 	<div class="form-group">
-      <input type="text" name="client_name" placeholder=" " required>
+      <input type="text" id="client_name" name="client_name" placeholder=" " required>
       <label>Клиент*</label>
     </div>
 	<div class="form-group">
@@ -164,7 +164,20 @@
     // Получаем элементы формы
     const vinInput = document.getElementById('vin');
     const vinError = document.getElementById('vin-error');
-	const phoneInput = document.getElementById('phone');
+    const phoneInput = document.getElementById('phone');
+
+    // Разрешенные символы: русские буквы и тире
+    const nameRegex = /^[А-Яа-яЁё-]+$/;
+
+   // Проверка поля "Клиент"
+    const firstnameInput = document.getElementById('client_name');
+    firstnameInput.addEventListener('input', (e) => {
+      let value = e.target.value;
+      // Удаляем все недопустимые символы
+      if (!nameRegex.test(value)) {
+        e.target.value = value.replace(/[^А-Яа-яЁё-]/g, '');
+      }
+    });
 
     // Регулярное выражение для проверки VIN
     const vinRegex = /^[A-HJ-NPR-Z0-9]{17}$/i;
