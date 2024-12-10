@@ -107,11 +107,11 @@
       </select>
     </div>
     <div class="form-group">
-      <input type="text" name="firstname" placeholder=" " required>
+      <input type="text" id="firstname" name="firstname" placeholder=" " required>
       <label>Имя</label>
     </div>
     <div class="form-group">
-      <input type="text" name="lastname" placeholder=" " required>
+      <input type="text" id="lastname" name="lastname" placeholder=" " required>
       <label>Фамилия</label>
     </div>
     <div class="form-group">
@@ -134,9 +134,32 @@
     <button type="submit">Зарегистрировать</button>
   </form>
   <script>
-  
+	
+	// Разрешенные символы: русские буквы и тире
+    const nameRegex = /^[А-Яа-яЁё-]+$/;
+	
 	// Получаем элементы формы
-	const phoneInput = document.getElementById('phone');    
+	const phoneInput = document.getElementById('phone');
+
+	// Проверка поля "Имя"
+    const firstnameInput = document.getElementById('firstname');
+    firstnameInput.addEventListener('input', (e) => {
+      let value = e.target.value;
+      // Удаляем все недопустимые символы
+      if (!nameRegex.test(value)) {
+        e.target.value = value.replace(/[^А-Яа-яЁё-]/g, '');
+      }
+    });
+
+    // Проверка поля "Фамилия"
+    const lastnameInput = document.getElementById('lastname');
+    lastnameInput.addEventListener('input', (e) => {
+      let value = e.target.value;
+      // Удаляем все недопустимые символы
+      if (!nameRegex.test(value)) {
+        e.target.value = value.replace(/[^А-Яа-яЁё-]/g, '');
+      }
+    });    
 	
 	// Обработчик ввода телефона
     phoneInput.addEventListener('input', (e) => {
