@@ -92,9 +92,11 @@
 </head>
 <body>
   <form id="form">
-<!-- Служебное поле -->
+	<strong> Для регистрации заполните поля формы. <br> 
+			Все поля являются обязательными. <br> <br> </strong>
+  <!-- Служебное поле -->
     <input type="hidden" name="form_type" value="user_registration">
-    
+  
     <div class="form-group">
       <select name="role" required>
         <option value="" disabled selected>Выберите роль</option>
@@ -117,21 +119,39 @@
       <label>Дата рождения</label>
     </div>
     <div class="form-group">
-      <input type="text" name="phone" placeholder=" " pattern="\+?[0-9\s\-]+" required>
-      <label>Номер телефона</label>
+      <input type="text" id="phone" name="phone" value="+7" pattern="\+7[0-9]{10}" required>
+      <label>Номер телефона*</label>
     </div>
     <div class="form-group">
       <select name="branch" required>
       <option value="" disabled selected>Выберите филиал</option>
-      <option value="Вешки">Вешки</option>
-      <option value="Волгоградка">Волгоградка</option>
-      <option value="Северо-Запад">Северо-Запад</option>
-      <option value="Юго-Восток">Юго-Восток</option>
-      <option value="Ясенево">Ясенево</option>
+      <option value="branch1">Вешки</option>
+      <option value="branch2">Волгоградка</option>
+      <option value="branch3">Северо-Запад</option>
+      <option value="branch4">Юго-Восток</option>
+      <option value="branch5">Ясенево</option>
     </select>
     <button type="submit">Зарегистрировать</button>
   </form>
   <script>
+  
+	// Получаем элементы формы
+	const phoneInput = document.getElementById('phone');    
+	
+	// Обработчик ввода телефона
+    phoneInput.addEventListener('input', (e) => {
+      // Запретить удаление "+7"
+      if (!phoneInput.value.startsWith('+7')) {
+        phoneInput.value = '+7';
+      }
+      // Ограничить ввод до 12 символов (+7 и 10 цифр)
+      if (phoneInput.value.length > 12) {
+        phoneInput.value = phoneInput.value.slice(0, 12);
+      }
+      // Удалить все недопустимые символы
+      phoneInput.value = phoneInput.value.replace(/[^\+7\d]/g, '');
+    });
+  
     document.getElementById('form').onsubmit = function(e) {
       e.preventDefault();
 
